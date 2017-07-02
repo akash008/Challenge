@@ -30,3 +30,9 @@ node app.js
 Now open browser's window [localhost:8000](http://localhost:8000/#!/)
 
 ![Empty Screen](/web/assets/fonts/EmptyScreen.png?raw=true "Empty Screen")
+
+![SearchPopup](/web/assets/fonts/SearchPopup.png?raw=true "Search Popup")
+
+![UserListing](/web/assets/fonts/UserListing.png?raw=true "User Listing")
+
+![UserDetails](/web/assets/fonts/UserDetails.png?raw=true "User Details")
