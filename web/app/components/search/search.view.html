@@ -1,0 +1,100 @@
+<div class="container-fluid" infinite-scroll="addMoreUsers()" ng-init="searchInit()" ng-keypress="resetData()">
+    <!-- Fixed header -->
+    <div class="fixed-page-header">
+        <span class="h5 m-t-20">Quickly find GitHub user information using their username</span>
+        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#myModalNorm" data-dismiss="modal" ng-click="userName=null;" title="Click Me"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Click!</button>
+        <span ng-if="successMessage" class="alert alert-success m-l-10" role="alert">{{successMessage}}</span>
+        <span ng-if="errorMessage" class="alert alert-danger m-l-10" role="alert">{{errorMessage}}</span>
+    </div>
+    <!-- Fixed header -->
+    <div class="row page-content" ng-form="searchUserForm">
+        <div class="col-md-12">
+            <!--List of users -->
+            <div class="col-md-8 meeting-left-container">
+                <div class="card-group" ng-repeat="user in userList">
+                    <div class="card card-content">
+                        <div class="card-header">
+                            <ul class="list-inline">
+                                <li class="list-inline-item"><img class="img-thumbnail profile-img" src="{{user.avatar_url}}"></li>
+                                <li class="list-inline-item"><span class="h5"> Name: </span> {{user.login}}</li>
+                                <li class="list-inline-item"><span class="h5">Score: </span> {{user.score}}</li>
+                                <li class="list-inline-item"><span class="h5">Type: </span> {{user.type}}</li>
+                            </ul>
+                        </div>
+                        <div class="card-block">
+                            <!-- GitHub Details -->
+                            <div class="card-text h5" data-toggle="collapse" data-target="#{{user.id}}" aria-expanded="false" aria-controls="{{user.id}}" ng-click="status.open=!status.open"><i aria-hidden="true" ng-class="{'fa fa-caret-down': status.open, 'fa fa-caret-right': !status.open}"></i> GitHub Account Details</div>
+                            <div class="collapse" id="{{user.id}}">
+                                <ul class="list-unstyled">
+                                    <li><span class="h6">GitHub Account: </span><a href="user.html_url" class="card-link">{{user.html_url}}</a> </li>
+                                    <li><span class="h6">Gists URL: </span><a href="user.gists_url" class="card-link">{{user.gists_url}}</a> </li>
+                                    <li><span class="h6">Repository URL: </span><a href="user.repos_url" class="card-link">{{user.repos_url}}</a> </li>
+                                    <li><span class="h6">Followers URL: </span><a href="user.followers_url" class="card-link">{{user.followers_url}}</a> </li>
+                                    <li><span class="h6">Following URL: </span><a href="user.following_url" class="card-link">{{user.following_url}}</a> </li>
+                                </ul>
+                            </div>
+                            <!-- GitHub Details -->
+                            <!-- Gist Data -->
+                            <div class="card-text h5" data-toggle="collapse" data-target="#{{user.login}}" aria-expanded="false" aria-controls="{{user.login}}" ng-click="status.open=!status.open"><i aria-hidden="true" ng-class="{'fa fa-caret-down': status.open, 'fa fa-caret-right': !status.open}"></i> Gist Data</div>
+                            <div class="collapse" id="{{user.login}}" ng-form="gistForm">
+                                <fieldset class="form-group">
+                                    <label class="h6" for="description">Description <span class="required-field">*</span></label>
+                                    <input type="text" class="form-control" name="description" ng-model="user.description" required>
+                                    <span class="required-field" ng-show="gistForm.description.$dirty && gistForm.description.$invalid">
+                                        <span ng-show="gistForm.description.$error.required">Description is required.</span>
+                                    </span>
+                                </fieldset>
+                                <fieldset class="form-group">
+                                    <label class="h6" for="file_content">File Content <span class="required-field">*</span></label>
+                                    <textarea class="form-control" rows="5" id="file_content" name="file_content" ng-model="user.fileContent" required></textarea>
+                                    <span class="required-field" ng-show="gistForm.file_content.$dirty && gistForm.file_content.$invalid">
+                                        <span ng-show="gistForm.file_content.$error.required">File Content is required.</span>
+                                    </span>
+                                </fieldset>
+                                <button type="button" class="btn btn-primary" ng-click="createGist(user)" ng-disabled="gistForm.description.$invalid">Save</button>
+                            </div>
+                            <!-- Gist Data -->
+                        </div>
+                    </div>
+                </div>
+                <!--Water mark when no user found -->
+                <div class="watermark" ng-if="userList.length === 0">No data available</div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModalNorm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" ng-form="modalForm">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Quick Find</h4>
+            </div>
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <div class="">
+                    <p class="lead">Enter the user's name and we will retrieve their profile details.</p>
+                    <!-- Enter user name container -->
+                    <label class="col-xs-2">User Name <span class="required-field">*</span></label>
+                    <div class="col-xs-6h">
+                        <input type="Text" name="userName" ng-model="userName" class="form-control" placeholder="Enter user's name..." ng-keypress="$event.keyCode === 13 && searchGitHubUser(); $event.keyCode === 13 && closeModal()" required>
+                        <span class="required-field" ng-show="modalForm.userName.$dirty && modalForm.userName.$invalid">
+                            <span ng-show="modalForm.userName.$error.required">Username is required.</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="searchGitHubUser();closeModal()" ng-disabled="modalForm.userName.$error.required">Search</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->

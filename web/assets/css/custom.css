@@ -1,0 +1,82 @@
+ /*Fixed page header*/
+ 
+ .fixed-page-header {
+     position: fixed;
+     left: 0px;
+     top: 0px;
+     right: 0;
+     height: 77px;
+     line-height: 77px;
+     z-index: 50;
+     max-width: 1440px;
+     background-color: cadetblue;
+     color: #fff;
+     padding: 0 30px;
+     -webkit-transition: 0.25s;
+     -moz-transition: 0.25s;
+     -o-transition: 0.25s;
+     transition: 0.25s;
+ }
+ 
+ .m-t-20 {
+     margin-top: 20px;
+ }
+ 
+ .m-l-10 {
+     margin-left: 10%
+ }
+ 
+ .meeting-left-container {
+     position: relative;
+     background: #fff;
+     /*z-index: 10;*/
+ }
+ 
+ .meeting-right-container {
+     position: absolute;
+     height: 100%;
+     right: 0;
+     background-color: #f5f5f5;
+     z-index: 3;
+ }
+ 
+ .page-content {
+     padding-top: 77px;
+ }
+ 
+ .card-content {
+     margin-bottom: 20px;
+ }
+ 
+ .user-img-container {
+     width: 80px;
+     height: 80px;
+     margin: 0 auto;
+     overflow: hidden;
+     -webkit-border-radius: 50%;
+     -moz-border-radius: 50%;
+     -o-border-radius: 50%;
+     border-radius: 50%;
+     background-color: #ddd;
+ }
+ 
+ .profile-img {
+     width: 40px;
+     height: 40px;
+ }
+ 
+ .required-field {
+     color: #FF0000;
+ }
+ 
+ .watermark {
+     position: absolute;
+     top: 180px;
+     left: 25%;
+     transform: translateY(-50%);
+     opacity: 0.25;
+     font-size: 3em;
+     width: 100%;
+     text-align: center;
+     z-index: 1000;
+ }

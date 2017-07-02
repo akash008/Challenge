@@ -1,0 +1,11 @@
+target/
+**/.project
+**/dest
+**/docs
+**/node
+**/node_modules
+**/bower_componets
+**/.classpath
+**/**/node_modules
+.settings/
+.idea/
