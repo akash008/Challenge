@@ -28,3 +28,5 @@ npm test
 node app.js
 ```
 Now open browser's window [localhost:8000](http://localhost:8000/#!/)
+
+![Empty Screen](/web/assets/fonts/EmptyScreen.png?raw=true "Empty Screen")
